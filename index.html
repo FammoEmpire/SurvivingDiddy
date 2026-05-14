@@ -4,11 +4,209 @@
     <title>SurvivingDiddy.com</title>
     <style>
     body {
-      background-color: black;
+  margin: 0;
+  font-family: Arial;
+  background-color: black;
+}
+
+/* NAVBAR */
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  background: black;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* DESKTOP MENU */
+.navLinks {
+  display: flex;
+  gap: 10px;
+  align-items: left;
+}
+
+/* BUTTONS */
+button {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #555;
+}
+
+/* GAMES DROPDOWN */
+.gamesContainer {
+  position: relative;
+}
+
+/* dropdown hidden by default */
+.gamesMenu {
+  position: fixed;
+  top: 10;
+  left: 10;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  background: #111;
+  padding: 10px;
+
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+
+  transition: 0.25s ease;
+}
+
+/* show class */
+.gamesMenu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* hover dropdown for desktop */
+@media (min-width: 111801px) {
+  .gamesContainer:hover .gamesMenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+
+    margin-left: 10px; /* adds space so it's not stuck to the button */
+
+    transform: none;
     }
+}
+
+/* HAMBURGER */
+.menuButton {
+  display: none;
+  background: #333;
+
+
+ 
+}
+
+/* MOBILE MODE */
+@media (max-width: 400px) {
+
+  .menuButton {
+    display: block;
+  }
+
+  .navLinks {
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+  top: 60px;
+  left: 10px;
+
+  background: black;
+  padding: 10px;
+  gap: 10px;
+
+  /* animation stuff */
+  opacity: 0;
+
+
+  pointer-events: none;
+  transform: translateY(-20px);
+  transition: 0.25s ease;
+}
+
+.navLinks.show {
+  display: flex; 
+  opacity: 1;
+  transform: translateY(0);
+
+  pointer-events: auto;
+}
+
+  /* mobile dropdown overrides hover */
+  .gamesMenu {
+    position: fixed;
+    background: black;
+    top: 20%;
+    left: 100;
+
+    margin-left: 100px; /* adds space so it's not stuck to the button */
+
+  opacity: 0;
+  transform: translateY(-20px); 
+
+  pointer-events: none;
+
+  transition: 0.25s ease;
+  }
+}
+
       </style>
   </head>
   <body>
+    <div class="navbar">
+
+  <button class="menuButton" onclick="toggleMenu()">☰</button>
+
+  <div class="navLinks" id="menu">
+    <img src="idk" width="15px" height="15px">
+    <button>Home</button>
+
+    <!-- GAMES -->
+    <div class="gamesContainer">
+
+      <button onclick="toggleGames()">Games ▸</button>
+
+      <div class="gamesMenu" id="gamesMenu">
+        <button>Game</button>
+        <button>Game 2 2</button>
+        <button>Game 3</button>
+      </div>
+
+    </div>
+
+    <button>About</button>
+    <button>Contact</button>
+
+  </div>
+</div>
+
+<script>
+function toggleMenu() {
+  document.getElementById("menu").classList.toggle("show");
+}
+
+function toggleGames() {
+  document.getElementById("gamesMenu").classList.toggle("show");
+}
+
+/* click outside to close */
+document.addEventListener("click", function(event) {
+
+  let menu = document.getElementById("menu");
+  let games = document.getElementById("gamesMenu");
+  let button = document.querySelector(".menuButton");
+
+  if (!menu.contains(event.target) && !button.contains(event.target)) {
+    menu.classList.remove("show");
+    games.classList.remove("show");
+  }
+});
+</script>
     <dir style="color: #901c00">
       <h1 style="background-color: black;">Surviving Diddy</h1>
       <img src="image.jpeg" alt="movie poster" width="150" height="300">
